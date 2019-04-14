@@ -24,4 +24,6 @@ gen-license mit --996icu en-us # generate mit LICENSE with 996ICU en-us version
 ```
 $ gem build gen-license.gemspec
 $ gem install gen-license-0.0.1.gem
+
+$ gem push gen-license-0.0.1.gem
 ```
