@@ -1,6 +1,7 @@
 Gem::Specification.new do |s|
   s.name                   = 'gen-license'
   s.version                = '0.0.2'
+  s.licenses               = ['MIT']
   s.date                   = '2019-04-14'
   s.summary                = 'Generate LICENSE Files'
   s.description            = 'Generate LICENSE Files'
