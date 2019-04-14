@@ -18,33 +18,22 @@ LICENSES = [
   "996icu-0.1",
 ]
 
-LangMap = {
-  "zh" => "zh-cn",
-  "zh-cn" => "zh-cn",
-  "zh-hans" => "zh-cn",
-  "en" => "en-us",
-  "en-us" => "en-us",
-}
-
 LicenseName = "LICENSE"
 
 def printHelp
 puts <<-EOS
-usage: gen-license [-h] [--list] [--996icu [{en-us,zh-cn}]]
-                   [{agpl-3.0,apache-2.0,bsd-2-clause,bsd-3-clause,epl-2.0,gpl-2.0,gpl-3.0,lgpl-2.1,lgpl-3.0,mit,mpl-2.0,unlicenses,996icu-0.1}]
+usage: gen-license [-h] [--list]
+                   [{agpl-3.0,apache-2.0,bsd-2-clause,bsd-3-clause,epl-2.0,gpl-2.0,gpl-3.0,lgpl-2.1,lgpl-3.0,mit,mpl-2.0,unlicenses}]
 
 tools to create license file, support GitHub LICENSE code.
 
 positional arguments:
-  {agpl-3.0,apache-2.0,bsd-2-clause,bsd-3-clause,epl-2.0,gpl-2.0,gpl-3.0,lgpl-2.1,lgpl-3.0,mit,mpl-2.0,unlicenses,996icu-0.1}
+  {agpl-3.0,apache-2.0,bsd-2-clause,bsd-3-clause,epl-2.0,gpl-2.0,gpl-3.0,lgpl-2.1,lgpl-3.0,mit,mpl-2.0,unlicenses}
                         LICENSE Code, --list to see
 
 optional arguments:
   -h, --help            show this help message and exit
   --list                Show supported LICENSE Codes
-  --996icu [{en-us,zh-cn}]
-                        Expand LICENSE with 996ICU LICENSE, Choose a language
-                        vesion or default zh-cn
 EOS
 end
 
@@ -53,7 +42,7 @@ def printLicenses
 end
 
 def printCodeError(code)
-  puts "error: argument code: invalid choice: '#{code}' (choose from 'agpl-3.0', 'apache-2.0', 'bsd-2-clause', 'bsd-3-clause', 'epl-2.0', 'gpl-2.0', 'gpl-3.0', 'lgpl-2.1', 'lgpl-3.0', 'mit', 'mpl-2.0', 'unlicenses', '996icu-0.1')"
+  puts "error: argument code: invalid choice: '#{code}' (choose from 'agpl-3.0', 'apache-2.0', 'bsd-2-clause', 'bsd-3-clause', 'epl-2.0', 'gpl-2.0', 'gpl-3.0', 'lgpl-2.1', 'lgpl-3.0', 'mit', 'mpl-2.0', 'unlicenses')"
 end
 
 def printResult(code)
@@ -72,13 +61,23 @@ def parse
   opt = OptionParser.new
   argvLength = ARGV.length
   code = ARGV[0]
-  lang = ARGV[2]
 
   if argvLength == 0
     printHelp
+    exit
   end
 
-  if code && ARGV.length == 1
+  if code == '-h'
+    printHelp
+    exit
+  end
+
+  if code == '--list'
+    printLicenses
+    exit
+  end
+
+  if code
     if LICENSES.include?(code)
       s = readTemplate("#{code}")
       writeLicense(s)
@@ -86,47 +85,7 @@ def parse
     else
       printCodeError(code)
     end
-  end
-
-  opt.on('-h') {|v|
-    if v == true
-      printHelp
-    end
-  }
-
-  opt.on('--list') {|v|
-    if v == true
-      if ARGV.length == 0
-        printLicenses
-      else
-        printHelp
-      end
-    end
-  }
-
-  opt.on('--996icu') {|v|
-    if v == true && 
-      if LICENSES.include?(code)
-        langCode = "zh-cn"
-        if LangMap.has_key?(lang)
-          langCode = LangMap[lang]
-        end
-        t = readTemplate("996.icu.template.#{langCode}")
-        s = readTemplate("#{code}")
-        t.gsub!(/{other}/, code)
-        t.gsub!(/{content}/, s)
-        writeLicense(t)
-        printResult(code + " (996icu #{langCode})")
-      else
-        printCodeError(code)
-      end
-    end
-  }
-
-  begin
-    opt.parse!(ARGV)
-  rescue OptionParser::InvalidOption => e
-    printHelp
+    exit
   end
 
 end
