@@ -1,7 +1,5 @@
 # gen-licnese-rb
 
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-
 gen-license-rb is a 996.icu license generator implemented in Ruby, this generator is developed to generate various open-source licenses including MIT, Apache, etc. More importantly, the main purpose of this tool is to incorporate those aforesaid licenses into a brand new license: 996.icu, defined by 996.icu.
 
 # Install
