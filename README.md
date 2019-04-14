@@ -1,6 +1,6 @@
 # gen-licnese-rb
 
-gen-license-rb is a 996.icu license generator implemented in Ruby, this generator is developed to generate various open-source licenses including MIT, Apache, etc. More importantly, the main purpose of this tool is to incorporate those aforesaid licenses into a brand new license: 996.icu, defined by 996.icu.
+gen-license-rb is a license generator implemented in Ruby
 
 # Install
 ```
