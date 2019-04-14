@@ -16,8 +16,7 @@ gen-license mit # generate mit LICENSE file in current directory
 gen-license --list
 
 # Conmmon LICENSE with 996ICU
-gen-license mit --996icu # generate mit LICENSE with 996ICU zh-cn version
-gen-license mit --996icu en-us # generate mit LICENSE with 996ICU en-us version
+gen-license mit # generate mit LICENSE
 ```
 
 ### dev
